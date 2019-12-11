@@ -1,71 +1,67 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
-import { createPortal } from "react-dom";
+import styled from 'styled-components';
+
+const HoverText = styled.p`
+	color: #000;
+	:hover {
+		color: #ed1212;
+		cursor: pointer;
+		
+	}
+	`;
+
 
 export class Notes extends Component {
   constructor (props) {
     super(props);
       this.state = {
-          showDialog: false
-      };
-      this._onChange = this._onChange.bind(this);
-      this._onSubmit = this._onSubmit.bind(this);
+          hover: false
+      }
+
   }
+    toggleHover = () =>{
+      console.log("Hello");
+        this.setState({hover: !this.state.hover})
+    };
 
 
 
-    _onChange(e) {
-        let input = e.target.value;
-
-        this.setState({ input });
-    }
-
-    _onSubmit(e) {
-        // e.preventDefault();
-        // let showDialog = false;
-        //
-        // // Dont Mutate the State!!!
-        // let list = this.state.list.slice();
-        //
-        // list.push(this.state.input);
-        //
-        // this.setState({ showDialog, list, input: "" });
-    }
 
 
   removeNote (id) {
     firebase.database().ref('notes').child(id).remove();
   }
   handleUpdate = (id) => firebase.database().ref('notes').child(id).update({note: 'edited'});
+  handleHower = (id) => console.log("Hello Hower");
 
   render() {
+      var linkStyle;
+      const { hover } = this.state;
+      if (this.state.hover) {
+          linkStyle = {color: '#ed1212',cursor: 'pointer'}
+      } else {
+          linkStyle = {color: '#000'}
+      }
       let EditableH1 = contentEditable('h3');
       let EditableP = contentEditable('p');
-      const { showDialog} = this.state;
     return (
+
       <section className="notes-wrapper">
         <h3>Notes</h3>
-        <div className="notes">
+        <div className="notes" >
           {this.props.notes.map(note => (
             <div className="note" key={note.id}>
-              <div className="note-title">
-                <EditableH1 value = {note.title} />
-
-                {/*<div className="remove" onClick={() => this.handleUpdate(note.id)}>x</div>*/}
+              <div className="note-title" onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover}>
+                <EditableH1 value = {note.title}  />
+                  {hover === true ? (
+                <div className="remove" onClick={() => this.removeNote(note.id)}>X</div>
+                  ): null}
               </div>
+
               <div className="note-content">
                 <EditableP value = {note.note}/>
               </div>
-                {showDialog === true ? (
-                    <DialogModal>
-                        <div className="dialog-wrapper">
-                            <h1>New List Item</h1>
-                            <form onSubmit={this._onSubmit}>
-                                <input type="text" onChange={this._onChange} />
-                            </form>
-                        </div>
-                    </DialogModal>
-                ) : null}
             </div>
           ))}
 
@@ -155,26 +151,6 @@ function contentEditable(WrappedComponent)
     }
 }
 
-class DialogModal extends Component {
-    constructor() {
-        super();
-        this.body = document.getElementsByTagName("body")[0];
-        this.el = document.createElement("div");
-        this.el.id = "dialog-root";
-    }
-
-    componentDidMount() {
-        this.body.appendChild(this.el);
-    }
-
-    componentWillUnmount() {
-        this.body.removeChild(this.el);
-    }
-
-    render() {
-        return createPortal(this.props.children, this.el);
-    }
-}
 
 
 export default Notes;
