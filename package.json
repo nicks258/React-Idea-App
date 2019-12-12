@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.7.2",
+    "@material-ui/icons": "^4.5.1",
+    "babel-plugin-react-hooks-hot-load": "^1.2.0",
     "firebase": "^5.9.1",
     "react": "^16.8.5",
     "react-dom": "^16.8.5",

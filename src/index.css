@@ -23,7 +23,7 @@ main {
   width: 100vw;
   height: 60px;
   background: #171717;
-  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
 }
 
 .header .title {
@@ -71,7 +71,7 @@ main {
   height: 150px;
   width: 150px;
   margin: 10px;
-  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
 }
 
 .notes .note .note-title {
@@ -80,6 +80,9 @@ main {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 20px;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .notes .note .note-title h3 {
@@ -92,10 +95,25 @@ main {
   color: #FF0000;
   font-size: 24px;
   font-weight: 700;
-}
 
+}
+.delete-icon{
+  min-width: 10px;
+  padding: 2px 2px;
+}
+.MuiButton-containedSecondary {
+  min-width: 10px;
+  padding: 2px 2px;
+}
+.MuiButton-startIcon {
+  display: inherit;
+  margin-left: 0;
+  margin-right: 0;
+}
 .notes .note .note-content {
   padding: 15px;
+  height: 50px;
+  overflow-y: scroll;
 }
 
 @media screen and (min-width: 768px) {
@@ -123,7 +141,7 @@ main {
   align-items: center;
   justify-content: center;
   background: rgba(0, 0, 0, 0.7);
-  box-shadow: 0px 10px 10px -5px black;
+  box-shadow: 0 10px 10px -5px black;
 }
 
   .dialog-wrapper {

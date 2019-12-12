@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
 import styled from 'styled-components';
-
+import DeleteIcon from '@material-ui/icons/Delete';
+import IconButton from '@material-ui/core/IconButton';
+import { makeStyles } from '@material-ui/core/styles';
 const HoverText = styled.p`
 	color: #000;
 	:hover {
@@ -12,6 +14,7 @@ const HoverText = styled.p`
 	`;
 
 
+
 export class Notes extends Component {
   constructor (props) {
     super(props);
@@ -20,23 +23,39 @@ export class Notes extends Component {
       }
 
   }
-    toggleHover = () =>{
+    hoverOn = () =>{
       console.log("Hello");
-        this.setState({hover: !this.state.hover})
+        this.setState({hover: true})
+    };
+
+    hoverOff = () =>{
+        console.log("Hello");
+        this.setState({hover: false})
     };
 
 
 
-
-
   removeNote (id) {
+      this.setState({hover: false});
     firebase.database().ref('notes').child(id).remove();
+
   }
   handleUpdate = (id) => firebase.database().ref('notes').child(id).update({note: 'edited'});
   handleHower = (id) => console.log("Hello Hower");
 
   render() {
       var linkStyle;
+      const useStyles = makeStyles({
+          button: {
+              margin:0
+          },
+      });
+      const styles = {
+          root: {
+             margin: 0
+          },
+      };
+      const classes = styles;
       const { hover } = this.state;
       if (this.state.hover) {
           linkStyle = {color: '#ed1212',cursor: 'pointer'}
@@ -50,18 +69,31 @@ export class Notes extends Component {
       <section className="notes-wrapper">
         <h3>Notes</h3>
         <div className="notes" >
-          {this.props.notes.map(note => (
-            <div className="note" key={note.id}>
-              <div className="note-title" onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover}>
+
+                {this.props.notes.map(note => (
+            <div className="note" key={note.id} onMouseEnter={this.hoverOn} onMouseLeave={this.hoverOff}>
+              <div className="note-title" style={styles.wrapperDiv} >
                 <EditableH1 value = {note.title}  />
                   {hover === true ? (
-                <div className="remove" onClick={() => this.removeNote(note.id)}>X</div>
+                      <IconButton
+                          style={{minWidth:10, padding:2,margin:0}}
+                          variant="contained"
+                          color="secondary"
+                          className={classes.root}
+                          onClick={() => this.removeNote(note.id)}
+
+                      >
+                          <DeleteIcon  style={{margin:0}} />
+                      </IconButton>
+
+                // <div className="remove" onClick={() => this.removeNote(note.id)}>X</div>
                   ): null}
               </div>
 
-              <div className="note-content">
+              <div className="note-content"  style={styles.wrapperDiv}>
                 <EditableP value = {note.note}/>
               </div>
+
             </div>
           ))}
 
