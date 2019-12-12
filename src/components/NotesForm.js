@@ -32,16 +32,16 @@ export class NotesForm extends Component {
       <section className="noteform">
 
 
-        <h3>Create New Note</h3>
+        <h3>Create New Idea</h3>
         <div className="form-group">
           <label htmlFor="noteform-title">Title</label>
           <input type="text" id="noteform-title" name="noteform-title" value={this.state.title} onChange={(evt) => this.onChangeHandler(evt, 'title')} />
         </div>
         <div className="form-group">
-          <label htmlFor="noteform-note">Note</label>
+          <label htmlFor="noteform-note">Description</label>
           <textarea name="noteform-note" id="noteform-note" value={this.state.note} onChange={(evt) => this.onChangeHandler(evt, 'note')}></textarea>
         </div>
-        <button onClick={this.createNote}>Create Note</button>
+        <button onClick={this.createNote}>Create Idea</button>
       </section>
     )
   }

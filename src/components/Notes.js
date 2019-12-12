@@ -67,7 +67,7 @@ export class Notes extends Component {
     return (
 
       <section className="notes-wrapper">
-        <h3>Notes</h3>
+        <h3>Ideas</h3>
         <div className="notes" >
 
                 {this.props.notes.map(note => (
