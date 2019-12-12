@@ -1,17 +1,10 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
-import styled from 'styled-components';
+
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
-import { makeStyles } from '@material-ui/core/styles';
-const HoverText = styled.p`
-	color: #000;
-	:hover {
-		color: #ed1212;
-		cursor: pointer;
-		
-	}
-	`;
+
+
 
 
 
@@ -44,12 +37,8 @@ export class Notes extends Component {
   handleHower = (id) => console.log("Hello Hower");
 
   render() {
-      var linkStyle;
-      const useStyles = makeStyles({
-          button: {
-              margin:0
-          },
-      });
+
+
       const styles = {
           root: {
              margin: 0
@@ -57,11 +46,7 @@ export class Notes extends Component {
       };
       const classes = styles;
       const { hover } = this.state;
-      if (this.state.hover) {
-          linkStyle = {color: '#ed1212',cursor: 'pointer'}
-      } else {
-          linkStyle = {color: '#000'}
-      }
+
       let EditableH1 = contentEditable('h3');
       let EditableP = contentEditable('p');
     return (
